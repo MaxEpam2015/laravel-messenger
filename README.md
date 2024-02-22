@@ -11,13 +11,13 @@ git clone  https://github.com/MaxEpam2015/laravel-messenger.git
 #### php v8.2.8
 #### git v2.39.3
 
-# Building project command:
+# Build project command:
 
 ```bash
 make i
 ```
 
-# Other available commands
+# Other available commands:
 
 ```text
 Possible commands are:
