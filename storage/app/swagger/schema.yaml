@@ -1,0 +1,157 @@
+openapi: 3.0.0
+info:
+  version: 1.0-oas3
+  title: Messenger
+  description:
+    API for manage messages
+  contact: { }
+servers:
+  - url: http://localhost:8080/api
+paths:
+  /messages/send:
+    post:
+      tags:
+        - Messages
+      description: Send message to receiver with content
+      summary: Send message
+      parameters:
+        - $ref: '#/components/parameters/csrfToken'
+      operationId: changePassword
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                receiver_number:
+                  type: integer
+                  example: 2
+                content:
+                  type: string
+                  example: https://hrr.com12
+              required:
+                - receiver_number
+                - content
+      responses:
+        '200':
+          description: 'Message has been changed successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponse'
+        '403':
+          description: Invalid XSRF token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Fields errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Failed due to processing error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+
+  /messages/{receiver_number}:
+    parameters:
+      - $ref: '#/components/parameters/receiver_number'
+    get:
+      tags:
+        - Messages
+      description: List of messages
+      summary: Show list of messages by receiver number
+      parameters:
+        - $ref: '#/components/parameters/csrfToken'
+      operationId: getMessages
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponse'
+        '403':
+          description: Invalid XSRF token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Messages list not found or expired
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Http method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+
+tags: [ ]
+components:
+  parameters:
+    csrfToken:
+      in: header
+      name: X-XSRF-TOKEN
+      example: OWY4NmQwODE4ODRjN2Q2NTlhMmZlYWEwYzU1YWQwMTVhM2JmNGYxYjJiMGI4MjJjZDE1ZDZMGYwMGEwOA==
+      description: CSRF token
+      required: true
+      schema:
+        type: string
+    receiver_number:
+      in: path
+      name: receiver_number
+      example: 2
+      required: true
+      description: Receiver number
+      schema:
+        type: integer
+  schemas:
+    CommonError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Some error
+      additionalProperties: false
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+            example: 'Invalid XSRF token'
+      additionalProperties: false
+    OkResponse:
+      type: object
+      description: Ok Response
+      items:
+        type: object
+      example: {}
+      additionalProperties: false
+    ValidationError:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+            example: content field is required.
+      additionalProperties: false
+
