@@ -17,6 +17,9 @@ git clone  https://github.com/MaxEpam2015/laravel-messenger.git
 make i
 ```
 
+# Swagger path:
+[schema.yaml](storage%2Fapp%2Fswagger%2Fschema.yaml)
+
 # Other available commands:
 
 ```text
