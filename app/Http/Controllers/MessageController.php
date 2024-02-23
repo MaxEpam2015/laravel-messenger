@@ -19,7 +19,7 @@ class MessageController extends Controller
     {
         SendMessage::dispatch($sendRequest->receiver_number, $sendRequest->content);
 
-        return new JsonResponse();
+        return response()->json();
     }
 
     /**
@@ -27,6 +27,6 @@ class MessageController extends Controller
      */
     public function get(int $receiverNumber): JsonResponse
     {
-        return new JsonResponse($this->redis->showMessages($receiverNumber));
+        return response()->json($this->redis->showMessages($receiverNumber));
     }
 }

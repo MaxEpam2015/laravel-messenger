@@ -1,26 +1,32 @@
 # Laravel Messenger
 
+## Project installation instruction:
+
 ```bash
 git clone  https://github.com/MaxEpam2015/laravel-messenger.git
 ```
 
-## Tested on macOS v14.3.1 with apps:
-#### Docker v4.17.0
-#### Composer version 2.4.4 (path `/usr/local/bin/composer`)
-#### developer tools
-#### php v8.2.8
-#### git v2.39.3
+### You should have preinstalled apps:
+#### Docker (my version is 4.17.0). On Linux with docker-compose
+#### Composer (my version  2.4.4 and path `/usr/local/bin/composer`)
+#### php (my version v8.2.8)
+#### git
 
-# Build project command:
+### If you have macOS, then developer tools should be installed:
+
+### Build project command on macOS:
 
 ```bash
 make i
 ```
 
-# Swagger path:
-[schema.yaml](storage%2Fapp%2Fswagger%2Fschema.yaml)
+### If you have Linux distribution, also execute next command (after `make i`):
 
-# Other available commands:
+```bash
+composer i 
+```
+
+# Available commands:
 
 ```text
 Possible commands are:
@@ -32,3 +38,6 @@ Possible commands are:
                        /usr/local/bin/composer i
                        php artisan key:generate
 ```
+
+# Swagger path:
+[schema.yaml](storage%2Fapp%2Fswagger%2Fschema.yaml)
